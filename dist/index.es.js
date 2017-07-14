@@ -1,5 +1,4 @@
-import _getIterator from 'babel-runtime/core-js/get-iterator';
-import _classCallCheck from 'babel-runtime/helpers/classCallCheck';
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Parser = function Parser(apply) {
   var _this = this;
@@ -78,7 +77,7 @@ var or = function or() {
     var _iteratorError = undefined;
 
     try {
-      for (var _iterator = _getIterator(args), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      for (var _iterator = args[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
         var value = _step.value;
 
         var res = value.apply(str, offset);
@@ -114,7 +113,7 @@ var and = function and() {
     var _iteratorError2 = undefined;
 
     try {
-      for (var _iterator2 = _getIterator(args), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+      for (var _iterator2 = args[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
         var value = _step2.value;
 
         var res = value.apply(str, offset);

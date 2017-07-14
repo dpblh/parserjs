@@ -21,7 +21,7 @@ let promise = Promise.resolve();
 promise = promise.then(() => del(['dist/*']));
 
 // Compile source code into a distributable format with Babel
-['es', 'cjs', 'umd'].forEach((format) => {
+['es', 'cjs', 'umd', 'iife'].forEach((format) => {
   promise = promise.then(() => rollup.rollup({
     entry: 'src/index.js',
     external: Object.keys(pkg.dependencies),
@@ -35,7 +35,7 @@ promise = promise.then(() => del(['dist/*']));
     dest: `dist/${format === 'cjs' ? 'index' : `index.${format}`}.js`,
     format,
     sourceMap: true,
-    moduleName: format === 'umd' ? pkg.name : undefined,
+    moduleName: ['umd', 'iife'].indexOf(format) !== -1 ? pkg.name : undefined,
   })));
 });
 
@@ -47,6 +47,7 @@ promise = promise.then(() => {
   delete pkg.eslintConfig;
   delete pkg.babel;
   fs.writeFileSync('dist/package.json', JSON.stringify(pkg, null, '  '), 'utf-8');
+  fs.writeFileSync('dist/bower.json', fs.readFileSync('bower.json', 'utf-8'), 'utf-8');
   fs.writeFileSync('dist/LICENSE.txt', fs.readFileSync('LICENSE.txt', 'utf-8'), 'utf-8');
 });
 

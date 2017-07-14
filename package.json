@@ -14,9 +14,7 @@
       "latest",
       "stage-0"
     ],
-    "plugins": [
-      "transform-runtime"
-    ]
+    "plugins": []
   },
   "eslintConfig": {
     "parser": "babel-eslint",
@@ -29,7 +27,6 @@
     "babel-cli": "^6.16.0",
     "babel-core": "^6.17.0",
     "babel-eslint": "^7.0.0",
-    "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-latest": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.16.3",
