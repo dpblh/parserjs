@@ -4,6 +4,6 @@
   "license": "MIT",
   "main": "index.iife.js",
   "dependencies": {
-    "babel-runtime": "^6.11.6"
+
   }
 }

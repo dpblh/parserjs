@@ -8,7 +8,5 @@
   "keywords": [],
   "main": "index.js",
   "jsnext:main": "index.es.js",
-  "dependencies": {
-    "babel-runtime": "^6.11.6"
-  }
+  "dependencies": {}
 }
