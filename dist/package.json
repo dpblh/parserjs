@@ -1,0 +1,14 @@
+{
+  "name": "parserjs",
+  "version": "0.0.1",
+  "description": "parser combinator",
+  "repository": "dpblh/parserjs",
+  "author": "Bajurov <bajurovt@gmail.com>",
+  "license": "MIT",
+  "keywords": [],
+  "main": "index.umd.js",
+  "jsnext:main": "index.es.js",
+  "dependencies": {
+    "babel-runtime": "^6.11.6"
+  }
+}
