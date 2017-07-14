@@ -7,7 +7,7 @@
   "author": "Bajurov <bajurovt@gmail.com>",
   "license": "MIT",
   "keywords": [],
-  "main": "index.umd.js",
+  "main": "index.js",
   "jsnext:main": "index.es.js",
   "babel": {
     "presets": [

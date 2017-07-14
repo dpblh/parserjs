@@ -1,0 +1,9 @@
+{
+  "name": "parserjs",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "index.umd.js",
+  "dependencies": {
+    "babel-runtime": "^6.11.6"
+  }
+}
