@@ -21,6 +21,10 @@ describe('parser', () => {
   const without7 = digestInt.not(txt('7'));
   const without7repeat = without7.rep().then(array => +array.join(''));
 
+  const digestAnd = digestInt.and(txt('a'));
+  const digestAndl = digestInt.andl(txt('a'));
+  const digestAndr = digestInt.andr(txt('a'));
+
   describe('digest', () => {
 
     it('should return parsed string', () => {
@@ -56,6 +60,22 @@ describe('parser', () => {
   describe('should be repeat', () => {
     expect(without7repeat.apply('1121123')).to.be.deep.equal({ res: 1121123, pos: 7 });
     expect(without7repeat.apply('127132')).to.be.deep.equal({ res: 12, pos: 2 });
+  });
+
+  describe('should be and', () => {
+    expect(digestAnd.apply('1a')).to.be.deep.equal({ res: [ 1, 'a' ], pos: 2 });
+    expect(txt('a').and(txt('b')).and(txt('c')).apply('abc')).to.be.deep.equal({ res: [ 'a', 'b', 'c' ], pos: 3 });
+  });
+
+  describe('should be andl', () => {
+    expect(digestAndl.apply('1a')).to.be.deep.equal({ res: 1, pos: 2 });
+    expect(txt('a').andl(txt('b')).andl(txt('c')).apply('abc')).to.be.deep.equal({ res: 'a', pos: 3 });
+    expect(txt('a').and(txt('b')).andl(txt('c')).apply('abc')).to.be.deep.equal({ res: [ 'a', 'b' ], pos: 3 });
+  });
+
+  describe('should be andr', () => {
+    expect(digestAndr.apply('1a')).to.be.deep.equal({ res: 'a', pos: 2 });
+    expect(txt('a').and(txt('b')).andr(txt('c')).apply('abc')).to.be.deep.equal({ res: 'c', pos: 3 });
   });
 
 });

@@ -1,4 +1,8 @@
 
+const flatten = list => list.reduce(
+  (a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []
+);
+
 export class Parser {
   whiteSpace = /\s*/;
   constructor (apply) {
@@ -8,6 +12,18 @@ export class Parser {
   then = (transform) => parser((str, offset) => {
     let res = this.apply(str, offset);
     return res && { res: transform(res.res), pos: res.pos };
+  });
+  and = (p) => parser((str, offset) => {
+    let resl = this.apply(str, offset), resr;
+    return resl && (resr = p.apply(str, resl.pos)) && { res: flatten([resl.res, resr.res]), pos: resr.pos };
+  });
+  andl = (p) => parser((str, offset) => {
+    let resl = this.apply(str, offset), resr;
+    return resl && (resr = p.apply(str, resl.pos)) && { res: resl.res, pos: resr.pos };
+  });
+  andr = (p) => parser((str, offset) => {
+    let resl = this.apply(str, offset), resr;
+    return resl && (resr = p.apply(str, resl.pos)) && { res: resr.res, pos: resr.pos };
   });
   ws = () => parser((str, offset) => {
     let res = this.whiteSpace.exec(str.substr(offset));

@@ -1,5 +1,11 @@
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var flatten = function flatten(list) {
+  return list.reduce(function (a, b) {
+    return a.concat(Array.isArray(b) ? flatten(b) : b);
+  }, []);
+};
+
 var Parser = function Parser(apply) {
   var _this = this;
 
@@ -16,6 +22,30 @@ var Parser = function Parser(apply) {
     return parser(function (str, offset) {
       var res = _this.apply(str, offset);
       return res && { res: transform(res.res), pos: res.pos };
+    });
+  };
+
+  this.and = function (p) {
+    return parser(function (str, offset) {
+      var resl = _this.apply(str, offset),
+          resr = void 0;
+      return resl && (resr = p.apply(str, resl.pos)) && { res: flatten([resl.res, resr.res]), pos: resr.pos };
+    });
+  };
+
+  this.andl = function (p) {
+    return parser(function (str, offset) {
+      var resl = _this.apply(str, offset),
+          resr = void 0;
+      return resl && (resr = p.apply(str, resl.pos)) && { res: resl.res, pos: resr.pos };
+    });
+  };
+
+  this.andr = function (p) {
+    return parser(function (str, offset) {
+      var resl = _this.apply(str, offset),
+          resr = void 0;
+      return resl && (resr = p.apply(str, resl.pos)) && { res: resr.res, pos: resr.pos };
     });
   };
 
