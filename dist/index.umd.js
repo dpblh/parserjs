@@ -38,6 +38,25 @@ var Parser = function Parser(apply) {
     });
   };
 
+  this.not = function (p) {
+    return parser(function (str, offset) {
+      var res = _this.apply(str, offset);
+      return res && !p.apply(str, offset) && res;
+    });
+  };
+
+  this.rep = function () {
+    return parser(function (str, offset) {
+      var result = [],
+          res = void 0;
+      while (res = _this.apply(str, offset)) {
+        result.push(res.res);
+        offset = res.pos;
+      }
+      return { res: result, pos: offset };
+    });
+  };
+
   this._apply = apply;
 };
 
