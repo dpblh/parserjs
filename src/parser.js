@@ -16,6 +16,18 @@ export class Parser {
   opt = () => parser((str, offset) => (
     this.apply(str, offset) || { res: undefined, pos: offset }
   ));
+  not = (p) => parser((str, offset) => {
+    let res = this.apply(str, offset);
+    return res && !p.apply(str, offset) && res;
+  });
+  rep = () => parser((str, offset) => {
+    let result = [], res;
+    while (res = this.apply(str, offset)) {
+      result.push(res.res);
+      offset = res.pos;
+    }
+    return { res: result, pos: offset };
+  })
 }
 
 export const parser = (apply) => new Parser(apply);
